@@ -2,7 +2,8 @@
 # Based on ubuntu:latest, installs WiseMapping (http://ww.wisemapping.org)
 
 # Based info setup ...
-FROM tomcat:jdk17
+#FROM --platform=$BUILDPLATFORM tomcat:9.0.71-jdk17
+FROM tomcat:10.1.11-jdk17
 LABEL maintainer="Paulo Gustavo Veiga <pveiga@wisemapping.com>"
 
 # Build variables ...
@@ -20,7 +21,7 @@ RUN cd ${WEBAPP_TARGET_DIR} && jar -xvf /tmp/wisemapping.war
 RUN rm /tmp/wisemapping.war
 
 # Change logger to
-RUN cp ${WEBAPP_TARGET_DIR}/WEB-INF/classes/log4j-stdout.properties ${WEBAPP_TARGET_DIR}/WEB-INF/classes/log4j.properties
+RUN cp ${WEBAPP_TARGET_DIR}/WEB-INF/log4j2-stdout.xml ${WEBAPP_TARGET_DIR}/WEB-INF/classes/log4j2.xml
 
 # Add support for proxy
 RUN sed -i 's|\
@@ -31,9 +32,6 @@ RUN sed -i 's|\
   </Host>|' \
   /usr/local/tomcat/conf/server.xml
 
-RUN sed -i 's|<Context>|<Context>\
-    <Loader jakartaConverter="TOMCAT" />|' \
-  /usr/local/tomcat/conf/context.xml
 # Copy default HSQL DB for testing ...
 RUN mkdir -p ${DB_BASE_DIR}/db
 COPY db/ ${DB_BASE_DIR}/db

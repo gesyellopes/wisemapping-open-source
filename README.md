@@ -9,16 +9,15 @@ WiseMapping is based on the same code product supporting [http://www.wisemapping
 
 The following products must be installed:
 
-    * OpenJDK 11 or higher
+    * JDK 21 or higher
     * Maven 3.x or higher ([http://maven.apache.org/])
-    * npm 6 or higher ([https://www.npmjs.com/package/npm?activeTab=versions])
 
 ### Compiling
 
 WiseMapping uses Maven as packaging and project management. It's composed of 5 maven sub-modules:
 
     * wise-ui:  React font-end fetcher
-    * wise-webapp: J2EE web application 
+    * wise-api: Springboot Backend API
 
 The full compilation of the project can be performed executing within <project-dir>:
 
@@ -29,7 +28,7 @@ Once this command is executed, the file <project-dir>/wise-webapp/target/wisemap
 ### Local Development
 The previously generated war can be deployed locally executing within the directory <project-dir>/wise-webapp the following command:
 
-`cd wise-webapp;mvn jetty:run-war`
+`cd wise-api;spring-boot:run`
 
 This will start the application on the URL: [http://localhost:8080/] using file based database.
 
@@ -96,5 +95,5 @@ After credential was created, Google will show you the clientId and clientSecret
 ## License
 
 The source code is Licensed under the WiseMapping Open License, Version 1.0 (the “License”);
-You may obtain a copy of the License at: [https://wisemapping.atlassian.net/wiki/display/WS/License]
+You may obtain a copy of the License at: [https://bitbucket.org/wisemapping/wisemapping-open-source/src/develop/license.md](https://bitbucket.org/wisemapping/wisemapping-open-source/src/develop/LICENSE.md)
 
