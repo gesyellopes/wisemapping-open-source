@@ -78,11 +78,11 @@ public class MindmapController extends BaseController {
         return new RestMindmap(mindMap, user);
     }
 
-    @PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
+    @PreAuthorize("permitAll()")
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/metadata", produces = {"application/json"})
     @ResponseBody
     public RestMindmapMetadata retrieveMetadata(@PathVariable int id) throws WiseMappingException {
-        final Account user = Utils.getUser(true);
+        final Account user = Utils.getUser(false);
         final Mindmap mindmap = findMindmapById(id);
         final MindMapBean mindMapBean = new MindMapBean(mindmap, user);
 
