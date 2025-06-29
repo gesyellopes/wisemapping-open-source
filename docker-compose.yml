@@ -1,18 +1,37 @@
-version: '3'
+version: '3.8'
 
 services:
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: wisemapping
+      POSTGRES_USER: wisemapping
+      POSTGRES_PASSWORD: wisemapping
+    volumes:
+      - wisemapping-db:/var/lib/postgresql/data
+    networks:
+      - wisenet
+
   wise-api:
     container_name: wise-api
-    hostname: wise-api
-    image: wise-api:latest
     build:
       context: ./wise-api
       dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/wisemapping
+      SPRING_DATASOURCE_USERNAME: wisemapping
+      SPRING_DATASOURCE_PASSWORD: wisemapping
     ports:
       - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - wisenet
+
   wise-ui:
     container_name: wise-ui
-    image: wise-ui:latest
     build:
       context: ./wise-ui
       dockerfile: Dockerfile
@@ -20,3 +39,12 @@ services:
       - wise-api
     ports:
       - "80:80"
+    networks:
+      - wisenet
+
+volumes:
+  wisemapping-db:
+
+networks:
+  wisenet:
+    driver: bridge
