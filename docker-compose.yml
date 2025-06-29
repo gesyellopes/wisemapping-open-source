@@ -13,6 +13,11 @@ services:
       - wisemapping-db:/var/lib/postgresql/data
     networks:
       - wisenet
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wisemapping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   wise-api:
     container_name: wise-api
@@ -23,8 +28,10 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/wisemapping
       SPRING_DATASOURCE_USERNAME: wisemapping
       SPRING_DATASOURCE_PASSWORD: wisemapping
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - wisenet
 
