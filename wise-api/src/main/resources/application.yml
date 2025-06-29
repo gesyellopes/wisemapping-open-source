@@ -53,8 +53,8 @@ logging:
 
 app:
   site:
-    ui-base-url: https://api-wise.projectgrid.cloud
-    api-base-url: https://wise.projectgrid.cloud
+    ui-base-url: https://wise.projectgrid.cloud
+    api-base-url: https://api-wise.projectgrid.cloud
   api:
     http-basic-enabled: false
   jwt:
