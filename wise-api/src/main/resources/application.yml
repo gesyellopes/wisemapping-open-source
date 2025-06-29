@@ -83,3 +83,5 @@ registration:
   enabled: true
   captcha:
     enabled: false
+    siteKey: ""
+    secretKey: ""
