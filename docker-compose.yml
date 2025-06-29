@@ -24,7 +24,7 @@ services:
       SPRING_DATASOURCE_USERNAME: wisemapping
       SPRING_DATASOURCE_PASSWORD: wisemapping
     ports:
-      - "8080:8080"
+      - "8180:8080"
     depends_on:
       - postgres
     networks:
@@ -38,7 +38,7 @@ services:
     depends_on:
       - wise-api
     ports:
-      - "80:80"
+      - "8081:80"
     networks:
       - wisenet
 
